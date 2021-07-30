@@ -13,35 +13,205 @@
   <meta property="og:type" content="website">
   <meta property="og:description" content="An UNOFFICIAL generator to create your own villager cards.">
 
-  <link rel="icon" href="/favicon.ico">
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="icon" href="favicon.ico">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
-  <link rel="stylesheet" href="css/styles.css?v=1.0">
+  <style>
+      body, html {
+          min-width: 1216px;
+      }
+      .vimage {
+          max-width: 700px;
+      }
+      .imageupload {
+          font-size: 110%;
+          font-weight: 600;
+      }
+      .downloadbutton {
+          display: block;
+          margin: 10px 0;
+      }
+  </style>
 
 </head>
 
 <body>
     <h1>UNOFFICIAL Palia Villager Card generator</h1>
+    <div id="dataentry">
+        <label class="imageupload">Villager Image:</label><input id="fileInput" type="file" /><br>
+        For best results, use an image no more than 600px wide with a transparent background <br>
+        <label>Image Scale: </label><input id="scale" max="4" min="0.1" step="0.01" type="range" value="0.83" /><br><br>
+        <label>Villager Name: </label><input id="villagername" type="text" value="Neleimour" /><br>
+        <label>Age:  </label><input id="villagerage" type="text" value="Adult" /><br><br>
+        <label>Line 1: </label><input id="line1" type="text" value="Best Community Manager out there" /><br>
+        <label>Line 2: </label><input id="line2" type="text" value="Enjoys rewatching Loki episodes" /><br>
+        <label>Line 3: </label><input id="line3" type="text" value="Friend to all animals" /><br>
+        <label>Line 4: </label><input id="line4" type="text" value="Did I mention she loves Loki?" /><br>
+    </div>
+
     <canvas id="vccanvas" width="250" height="250"></canvas>
-    <img id="vcbackground" style="display: none;" src="/images/vcbackground.png" alt="" />
+    <img id="vcbackground" style="display: none;" src="images/vcbackground.png" alt="" />
+    <img id="villagerimage" class="vimage" style="display: none;" src="images/villager.png" alt="" />
+    <div class="downloadbutton">
+        <a id="downloadlink" style="display:none;"></a>
+        <input id="img-download" type="button" value="Download Image" />
+    </div>
+    
 
 
     <script>
-        var canvas = document.getElementById('vccanvas');
-        ctx = canvas.getContext('2d');
+        var canvas;
+        var canvasWidth;
+        var ctx;
+        var x;
+        var y;
+        var download;
+        var xscale;
+        var yscale;
+        var fileInput;
+        var img;
+        var villagerimage;
+        var villagerimagescale;
 
-        //  Grab the image
-        var img = document.getElementById('vcbackground');
+        window.onload = function() {
+            var deviceWidth = window.innerWidth;
+            villagerimagescale = 0.8
 
-        // When the image has loaded...
-        img.onload = function() {
-            // Work out where to center it
+            canvas = document.getElementById('vccanvas');
+            ctx = canvas.getContext('2d');
+
+            canvasWidth = 1200;
+
+            canvas.width = canvasWidth;
+            canvas.height = canvasWidth/2
+
+            fileInput = document.getElementById('fileInput');
+            fileInput.addEventListener('change', function(e) {
+                var reader = new FileReader();
+                reader.onload = function(event){
+                    img = document.getElementById('villagerimage');
+                    img.onload = function(){
+                        updateCanvas();
+                    }
+                    img.src = reader.result;
+                    }
+                reader.readAsDataURL(fileInput.files[0]);     
+            }, false);
+
+            download = document.getElementById('img-download');
+            download.addEventListener('click', prepareDownload, false);
+
+            document.getElementById('scale').addEventListener('change', updateCanvas, false);
+            document.getElementById('villagername').addEventListener('change', updateCanvas, false);
+            document.getElementById('villagerage').addEventListener('change', updateCanvas, false);
+            document.getElementById('line1').addEventListener('change', updateCanvas, false);
+            document.getElementById('line2').addEventListener('change', updateCanvas, false);
+            document.getElementById('line3').addEventListener('change', updateCanvas, false);
+            document.getElementById('line4').addEventListener('change', updateCanvas, false);
+
+            updateCanvas();
+        }
+ 
+        function prepareDownload() {
+            var link = document.getElementById('downloadlink');
+            link.setAttribute('download', 'VillagerCard.png');
+            link.setAttribute('href', canvas.toDataURL("image/png").replace("image/png", "image/octet-stream"));
+            link.click();
+        }
+
+        function drawBackground() {
+            img = document.getElementById('vcbackground');
             x = canvas.width/2 - img.width/2;
             y = canvas.height/2 - img.height/2;
 
-            // Draw it
             ctx.drawImage(img, x, y);
+        }
+
+        function drawVillager() {
+            img = document.getElementById('villagerimage');
+            villagerimagescale = document.getElementById('scale').value;
+            xscale = Math.min(650, img.width * villagerimagescale);
+            yscale = (xscale/img.width) * img.height;
+
+            x = canvas.width * 0.02
+            y = canvas.height - yscale;
+            ctx.drawImage(img, x, y, xscale, yscale);
+        }
+        
+        function updateCanvas() {
+            // CLEAR CANVAS
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawBackground();
+
+            // VILLAGER NAME
+            ctx.scale(1, 1.3);
+            ctx.textAlign = 'right';
+            ctx.lineWidth  = 4;
+            ctx.font = '100pt arial';
+            ctx.strokeStyle = '#00a6d3';
+            ctx.fillStyle = '#00a6d3';
+
+            text = document.getElementById('villagername').value;
+            text = text.toUpperCase();
+
+            x = canvas.width/1.01;
+            y = canvas.height - canvas.height/1.25;
+            
+            ctx.strokeText(text, x, y)
+            ctx.fillText(text, x, y);
+
+            // AGE
+            ctx.setTransform(1, 0, 0, 1, 0, 0);
+            ctx.textAlign = 'left';
+            ctx.lineWidth  = 2;
+            ctx.font = '35pt arial';
+            ctx.strokeStyle = '#64483a';
+            ctx.fillStyle = '#64483a';
+
+            text = document.getElementById('villagerage').value;
+
+            x = canvas.width/1.52;
+            y = canvas.height - canvas.height/1.79;
+            
+            ctx.strokeText(text, x, y)
+            ctx.fillText(text, x, y);
+
+            // LINES
+            ctx.textAlign = 'left';
+            ctx.font = '500 18pt filson-pro';
+            ctx.strokeStyle = '#64483a';
+            ctx.fillStyle = '#64483a';
+
+            text = document.getElementById('line1').value;
+
+            x = canvas.width/1.64;
+            y = canvas.height - canvas.height/2.63;
+            
+            ctx.fillText(text, x, y);
+
+            text = document.getElementById('line2').value;
+
+            x = canvas.width/1.64;
+            y = canvas.height - canvas.height/3.1;
+            
+            ctx.fillText(text, x, y);
+
+            text = document.getElementById('line3').value;
+
+            x = canvas.width/1.64;
+            y = canvas.height - canvas.height/3.78;
+            
+            ctx.fillText(text, x, y);
+
+            text = document.getElementById('line4').value;
+
+            x = canvas.width/1.64;
+            y = canvas.height - canvas.height/4.81;
+            
+            ctx.fillText(text, x, y);
+
+            drawVillager();
         }
     </script>
 </body>
