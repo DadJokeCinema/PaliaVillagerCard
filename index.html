@@ -17,6 +17,8 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
+  <link rel="stylesheet" href="https://use.typekit.net/yxe6stc.css">
+
   <style>
       @font-face{ 
         font-family: 'Algiers';
@@ -44,13 +46,24 @@
       .slidertext {
           width: 50px;
       }
+      h1, em {
+          margin-bottom: 10px;
+          display: block;
+      }
+      .dataentry {
+          margin-bottom: 10px;
+          font-family: filson-pro, sans-serif;
+          font-weight: 400;
+          font-style: normal;
+      }
   </style>
 
 </head>
 
 <body>
     <h1 class="pagetitle">UNOFFICIAL Palia Villager Card generator</h1>
-    <div id="dataentry">
+    <em>Created by DadJoke. version 0.2</em>
+    <div class="dataentry">
         <label class="imageupload">Villager Image:</label><input id="fileInput" type="file" /><br>
         For best results, use an image no more than 600px wide with a transparent background <br>
         <label>Image Scale: </label><input id="scale" max="4" min="0.1" step="0.01" type="range" value="0.83" /><input id="scaletext" class="slidertext" type="text" value="0" /><br><br>
