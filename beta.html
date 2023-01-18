@@ -121,8 +121,8 @@
                         <label>Villager Name: <input id="villagername" type="text" value="Your Name Here" /></label>
                         <label>Adjust Name Position: <input id="namepostext" class="slidertext" type="text" value="1" /><input id="namepos" max="1" min="0" step="0.01" type="range" value="1" /></label>
                         <label class="stack">Age: <input id="villagerage" type="text" value="Adult" /></label>
-                        <label class="stack">Line 1: <input id="line1" type="text" value="New features coming soon" /></label>
-                        <label class="stack">Line 2: <input id="line2" type="text" value="Like moveable bullet points" /></label>
+                        <label class="stack">Line 1: <input id="line1" type="text" value="New card layout coming soon!" /></label>
+                        <label class="stack">Line 2: <input id="line2" type="text" value="You don't have to fill in every line" /></label>
                         <label class="stack">Line 3: <input id="line3" type="text" value="Share in #Introductions" /></label>
                         <label class="stack">Line 4: <input id="line4" type="text" value="On the Palia discord" /></label>
                     </footer>
@@ -136,6 +136,7 @@
             <canvas id="vccanvas" width="250" height="250"></canvas>
             <img id="vcbackground" style="display: none;" src="images/vcbackground030.png" alt="" />
             <img id="villagerimage" class="vimage" style="display: none;" src="images/villager.png" alt="" />
+            <img id="bulletimage" class="vimage" style="display: none;" src="images/bullet.png" alt="" />
             <div class="downloadbutton">
                 <a id="downloadlink" style="display:none;"></a>
                 <input id="img-download" type="button" value="Download Image" />
@@ -314,39 +315,48 @@
             ctx.fillText(text, x, y);
 
             // LINES
+            bullet = document.getElementById('bulletimage');
             ctx.textAlign = 'left';
             ctx.font = '500 18pt filson-pro';
             ctx.strokeStyle = '#64483a';
             ctx.fillStyle = '#64483a';
 
             text = document.getElementById('line1').value;
+            if(text != '') {
+                x = canvas.width/1.64;
+                y = canvas.height - canvas.height/2.63;
 
-            x = canvas.width/1.64;
-            y = canvas.height - canvas.height/2.63;
-            
-            ctx.fillText(text, x, y);
-
+                ctx.drawImage(bullet, x - 22, y - 18);
+                
+                ctx.fillText(text, x, y);
+            }
             text = document.getElementById('line2').value;
+            if(text != '') {
+                x = canvas.width/1.64;
+                y = canvas.height - canvas.height/3.1;
+                
+                ctx.drawImage(bullet, x - 22, y - 18);
 
-            x = canvas.width/1.64;
-            y = canvas.height - canvas.height/3.1;
-            
-            ctx.fillText(text, x, y);
-
+                ctx.fillText(text, x, y);
+            }
             text = document.getElementById('line3').value;
+            if(text != '') {
+                x = canvas.width/1.64;
+                y = canvas.height - canvas.height/3.78;
+                
+                ctx.drawImage(bullet, x - 22, y - 18);
 
-            x = canvas.width/1.64;
-            y = canvas.height - canvas.height/3.78;
-            
-            ctx.fillText(text, x, y);
-
+                ctx.fillText(text, x, y);
+            }
             text = document.getElementById('line4').value;
+            if(text != '') {
+                x = canvas.width/1.64;
+                y = canvas.height - canvas.height/4.81;
+                
+                ctx.drawImage(bullet, x - 22, y - 18);
 
-            x = canvas.width/1.64;
-            y = canvas.height - canvas.height/4.81;
-            
-            ctx.fillText(text, x, y);
-
+                ctx.fillText(text, x, y);
+            }
             drawVillager();
         }
     </script>
