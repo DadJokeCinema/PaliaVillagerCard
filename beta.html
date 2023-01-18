@@ -1,0 +1,357 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Palia Villager Card Generator</title>
+  <meta name="description" content="An UNOFFICIAL generator to create your own villager cards.">
+  <meta name="author" content="DadJokeCinema">
+
+  <meta property="og:title" content="Palia Villager Card Generator">
+  <meta property="og:type" content="website">
+  <meta property="og:description" content="An UNOFFICIAL generator to create your own villager cards.">
+
+  <link rel="icon" href="favicon.ico">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+  <link rel="stylesheet" href="https://use.typekit.net/yxe6stc.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picnic">
+
+  <style>
+      @font-face{ 
+        font-family: 'Algiers';
+        src:url('Algiers-Regular.woff2') format('woff2'),
+        url('Algiers-Regular.woff') format('woff'),
+        url('Algiers-Regular.ttf') format('truetype');
+      }   
+      body {
+        font-size: 1em;
+        line-height: 1.3;
+      }
+      .pagetitle {
+          font-family: Algiers;
+      }
+      .vimage {
+          max-width: 700px;
+      }
+      .downloadbutton {
+          display: block;
+          margin: 10px 0;
+      }
+      .slidertext {
+          width: 50px;
+      }
+      h1, em {
+          margin-bottom: 10px;
+          display: block;
+      }
+      .dataentry {
+          margin: 2em 0;
+          font-family: filson-pro, sans-serif;
+          font-weight: 400;
+          font-style: normal;
+      }
+      .dataentry .card {
+        margin: 1em 0;
+      }
+      .dataentry .card header {
+        background: rgb(254, 244, 230);
+      }
+      .visual {
+        text-align: left;
+        width: 90%;
+        margin: 0 auto;
+        padding: 2em 0 0;
+      }
+      .hero {
+        position: relative;
+        width: 100%;
+        text-align: center;
+        color: #333;
+        padding: 1px 0;
+        background: rgb(254, 244, 230);
+      }
+      .hero h1 {
+        font-family: "Merriweather", serif;
+      }
+      .card footer fieldset, .card footer>input {
+        margin: 1em 0;
+      }
+
+      #canvascontainer {
+        padding-bottom: 4em;
+      }
+  </style>
+
+</head>
+
+<body>
+    <div class="hero">
+        <div class="content">
+            <h1 class="pagetitle">UNOFFICIAL Palia Villager Card generator</h1>
+            <strong>Presented by [TOAST] clan. Developed by DadJokeCinema</strong><br />
+            <em>version 0.3.0</em>
+        </div>
+    </div>
+    <div id="content" class="visual">
+        <div>
+            <p><strong>NOTICE: </strong> Some adblockers prevent fonts from being loaded by Adobe Typekit. For the best accuracy, allow Typekit through the ad-blocker. There are no ads or trackers on this site.</p>       
+        </div>
+        <div class="dataentry flex one two-800">
+            <blockquote class="full">
+                <p><strong>To use this tool:</strong> Click the 'Choose File' button to select your villager image. Adjust the size of the image with the slider. Update the textboxes, and then hit the Download button at the bottom to save the image to your device.</p>
+            </blockquote>
+            <div>
+                <article class="card">
+                    <header>Villager Image</header>
+                    <footer>
+                        <input id="fileInput" type="file" />
+                        <blockquote>For best results, use an image no more than 600px wide with a transparent background</blockquote>
+                        <fieldset>
+                            <label>Image Scale: <input id="scaletext" class="slidertext" type="text" value="0" /><input id="scale" max="4" min="0.1" step="0.01" type="range" value="0.83" /></label>
+                            <label>Image Position: <input id="imagepostext" class="slidertext" type="text" value="1" /><input id="imagepos" max="2" min="0.1" step="0.001" type="range" value="1" /></label>
+                        </fieldset>
+                    </footer>
+                </article>
+            </div>
+            <div>
+                <article class="card">
+                    <header>Villager Info</header>
+                    <footer>
+                        <label>Villager Name: <input id="villagername" type="text" value="Your Name Here" /></label>
+                        <label>Adjust Name Position: <input id="namepostext" class="slidertext" type="text" value="1" /><input id="namepos" max="1" min="0" step="0.01" type="range" value="1" /></label>
+                        <label class="stack">Age: <input id="villagerage" type="text" value="Adult" /></label>
+                        <label class="stack">Line 1: <input id="line1" type="text" value="New features coming soon" /></label>
+                        <label class="stack">Line 2: <input id="line2" type="text" value="Like moveable bullet points" /></label>
+                        <label class="stack">Line 3: <input id="line3" type="text" value="Share in #Introductions" /></label>
+                        <label class="stack">Line 4: <input id="line4" type="text" value="On the Palia discord" /></label>
+                    </footer>
+                </article>
+            </div>
+
+
+
+        </div>
+        <div id="canvascontainer">
+            <canvas id="vccanvas" width="250" height="250"></canvas>
+            <img id="vcbackground" style="display: none;" src="images/vcbackground.png" alt="" />
+            <img id="villagerimage" class="vimage" style="display: none;" src="images/villager.png" alt="" />
+            <div class="downloadbutton">
+                <a id="downloadlink" style="display:none;"></a>
+                <input id="img-download" type="button" value="Download Image" />
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        var canvas;
+        var canvasWidth;
+        var ctx;
+        var x;
+        var y;
+        var scaletext;
+        var namepostext;
+        var imagepostext
+        var download;
+        var xscale;
+        var yscale;
+        var fileInput;
+        var img;
+        var villagerimage;
+        var villagerimagescale;
+
+        window.onload = function() {
+            var deviceWidth = window.innerWidth;
+            villagerimagescale = 0.8
+
+            scaletext = document.getElementById('scaletext');
+            scaletext.value = document.getElementById('scale').value;
+
+            imagepostext = document.getElementById('imagepostext');
+            imagepostext.value = document.getElementById('imagepos').value;
+
+            namepostext = document.getElementById('namepostext');
+            namepostext.value = document.getElementById('namepos').value;
+
+            canvas = document.getElementById('vccanvas');
+            ctx = canvas.getContext('2d');
+
+            
+            if(deviceWidth > 1240) {
+                canvasWidth = 1200;
+            } else {
+                canvasWidth = document.getElementById('canvascontainer').offsetWidth;
+            }
+
+            canvas.width = canvasWidth;
+            canvas.height = canvasWidth/2
+
+            fileInput = document.getElementById('fileInput');
+            fileInput.addEventListener('change', function(e) {
+                var reader = new FileReader();
+                reader.onload = function(event){
+                    img = document.getElementById('villagerimage');
+                    img.onload = function(){
+                        updateCanvas();
+                    }
+                    img.src = reader.result;
+                    }
+                reader.readAsDataURL(fileInput.files[0]);     
+            }, false);
+
+            download = document.getElementById('img-download');
+            download.addEventListener('click', prepareDownload, false);
+
+            document.getElementById('scale').addEventListener('change', updateScale, false);
+            document.getElementById('scaletext').addEventListener('change', updateScaleText, false);
+            document.getElementById('imagepos').addEventListener('change', updateImagePos, false);
+            document.getElementById('imagepostext').addEventListener('change', updateImagePosText, false);
+            document.getElementById('namepos').addEventListener('change', updatePos, false);
+            document.getElementById('namepostext').addEventListener('change', updatePosText, false);
+            document.getElementById('villagername').addEventListener('change', updateCanvas, false);
+            document.getElementById('villagerage').addEventListener('change', updateCanvas, false);
+            document.getElementById('line1').addEventListener('change', updateCanvas, false);
+            document.getElementById('line2').addEventListener('change', updateCanvas, false);
+            document.getElementById('line3').addEventListener('change', updateCanvas, false);
+            document.getElementById('line4').addEventListener('change', updateCanvas, false);
+
+            updateCanvas();
+        }
+
+        function updateScale() {
+            scaletext.value = document.getElementById('scale').value;
+            updateCanvas();
+        }
+
+        function updateScaleText() {
+            document.getElementById('scale').value = scaletext.value;
+            updateCanvas();
+        }
+
+        function updateImagePos() {
+            imagepostext.value = document.getElementById('imagepos').value;
+            updateCanvas();
+        }
+
+        function updateImagePosText() {
+            document.getElementById('imagepos').value = imagepostext.value;
+            updateCanvas();
+        }
+
+        function updatePos() {
+            namepostext.value = document.getElementById('namepos').value;
+            updateCanvas();
+        }
+
+        function updatePosText() {
+            document.getElementById('namepos').value = namepostext.value;
+            updateCanvas();
+        }
+ 
+        function prepareDownload() {
+            var link = document.getElementById('downloadlink');
+            link.setAttribute('download', 'VillagerCard.png');
+            link.setAttribute('href', canvas.toDataURL("image/png").replace("image/png", "image/octet-stream"));
+            link.click();
+        }
+
+        function drawBackground() {
+            img = document.getElementById('vcbackground');
+            x = canvas.width/2 - img.width/2;
+            y = canvas.height/2 - img.height/2;
+
+            ctx.drawImage(img, x, y);
+        }
+
+        function drawVillager() {
+            img = document.getElementById('villagerimage');
+            villagerimagescale = document.getElementById('scale').value;
+            xscale = Math.min((canvas.width/2), img.width);
+            xscale *= villagerimagescale;
+            yscale = (xscale/img.width) * img.height;
+
+            x = canvas.width * 0.02 + (xscale * (imagepostext.value) - xscale)
+            y = canvas.height - yscale;
+            ctx.drawImage(img, x, y, xscale, yscale);
+        }
+        
+        function updateCanvas() {
+            // CLEAR CANVAS
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawBackground();
+
+            // VILLAGER NAME
+            ctx.scale(1, 1.4);
+            ctx.textAlign = 'right';
+            ctx.font = 'normal 110pt Algiers';
+            ctx.fillStyle = '#00a6d3';
+
+            text = document.getElementById('villagername').value;
+            text = text.toUpperCase();
+
+            x = (canvas.width/1.01);
+            adjust = (canvas.width/2) * (1-namepostext.value);
+            x -= adjust;
+            y = canvas.height - canvas.height/1.25;
+            
+            ctx.fillText(text, x, y);
+
+            // AGE
+            ctx.setTransform(1, 0, 0, 1, 0, 0);
+            ctx.textAlign = 'left';
+            ctx.lineWidth  = 2;
+            ctx.font = '35pt arial';
+            ctx.strokeStyle = '#64483a';
+            ctx.fillStyle = '#64483a';
+
+            text = document.getElementById('villagerage').value;
+
+            x = canvas.width/1.52;
+            y = canvas.height - canvas.height/1.798;
+            
+            ctx.strokeText(text, x, y)
+            ctx.fillText(text, x, y);
+
+            // LINES
+            ctx.textAlign = 'left';
+            ctx.font = '500 18pt filson-pro';
+            ctx.strokeStyle = '#64483a';
+            ctx.fillStyle = '#64483a';
+
+            text = document.getElementById('line1').value;
+
+            x = canvas.width/1.64;
+            y = canvas.height - canvas.height/2.63;
+            
+            ctx.fillText(text, x, y);
+
+            text = document.getElementById('line2').value;
+
+            x = canvas.width/1.64;
+            y = canvas.height - canvas.height/3.1;
+            
+            ctx.fillText(text, x, y);
+
+            text = document.getElementById('line3').value;
+
+            x = canvas.width/1.64;
+            y = canvas.height - canvas.height/3.78;
+            
+            ctx.fillText(text, x, y);
+
+            text = document.getElementById('line4').value;
+
+            x = canvas.width/1.64;
+            y = canvas.height - canvas.height/4.81;
+            
+            ctx.fillText(text, x, y);
+
+            drawVillager();
+        }
+    </script>
+</body>
+</html>
