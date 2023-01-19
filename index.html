@@ -18,6 +18,7 @@
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
   <link rel="stylesheet" href="https://use.typekit.net/yxe6stc.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picnic">
 
   <style>
       @font-face{ 
@@ -26,18 +27,15 @@
         url('Algiers-Regular.woff') format('woff'),
         url('Algiers-Regular.ttf') format('truetype');
       }   
-      body, html {
-          min-width: 1216px;
+      body {
+        font-size: 1em;
+        line-height: 1.3;
       }
       .pagetitle {
           font-family: Algiers;
       }
       .vimage {
           max-width: 700px;
-      }
-      .imageupload {
-          font-size: 110%;
-          font-weight: 600;
       }
       .downloadbutton {
           display: block;
@@ -51,42 +49,100 @@
           display: block;
       }
       .dataentry {
-          margin-bottom: 10px;
+          margin: 2em 0;
           font-family: filson-pro, sans-serif;
           font-weight: 400;
           font-style: normal;
+      }
+      .dataentry .card {
+        margin: 1em 0;
+      }
+      .dataentry .card header {
+        background: rgb(254, 244, 230);
+      }
+      .visual {
+        text-align: left;
+        width: 90%;
+        margin: 0 auto;
+        padding: 2em 0 0;
+      }
+      .hero {
+        position: relative;
+        width: 100%;
+        text-align: center;
+        color: #333;
+        padding: 1px 0;
+        background: rgb(254, 244, 230);
+      }
+      .card footer fieldset, .card footer>input {
+        margin: 1em 0;
+      }
+
+      #canvascontainer {
+        padding-bottom: 4em;
       }
   </style>
 
 </head>
 
 <body>
-    <h1 class="pagetitle">UNOFFICIAL Palia Villager Card generator</h1>
-    <em>Created by DadJoke. version 0.2.4</em>
-    <p>Some adblockers prevent fonts from being loaded by Adobe Typekit. For the best accuracy, allow Typekit through the ad-blocker. There are no ads or trackers on this site.</p>
-    <p>To use this tool: Click the 'Choose File' button to select your villager image. Adjust the size of the image with the slider. Update the textboxes, and then hit the Download button at the bottom to save the image to your device.</p>
-    <div class="dataentry">
-        <label class="imageupload">Villager Image:</label><input id="fileInput" type="file" /><br>
-        For best results, use an image no more than 600px wide with a transparent background <br>
-        <label>Image Scale: </label><input id="scale" max="4" min="0.1" step="0.01" type="range" value="0.83" /><input id="scaletext" class="slidertext" type="text" value="0" /><br><br>
-        <label>Image Position: </label><input id="imagepos" max="2" min="0.1" step="0.001" type="range" value="1" /><input id="imagepostext" class="slidertext" type="text" value="1" /><br><br>
-        <label>Villager Name: </label><input id="villagername" type="text" value="Your Name Here" /><br>
-        <label>Adjust Name Position: </label><input id="namepos" max="1" min="0" step="0.01" type="range" value="1" /><input id="namepostext" class="slidertext" type="text" value="1" /><br><br>
-        <label>Age:  </label><input id="villagerage" type="text" value="Adult" /><br><br>
-        <label>Line 1: </label><input id="line1" type="text" value="New features coming soon" /><br>
-        <label>Line 2: </label><input id="line2" type="text" value="Like moveable bullet points" /><br>
-        <label>Line 3: </label><input id="line3" type="text" value="Share in #Introductions" /><br>
-        <label>Line 4: </label><input id="line4" type="text" value="On the Palia discord" /><br>
+    <div class="hero">
+        <div class="content">
+            <h1 class="pagetitle">UNOFFICIAL Palia Villager Card generator</h1>
+            <strong>Presented by [TOAST] clan. Developed by DadJokeCinema</strong><br />
+            <em>version 0.3.0</em>
+        </div>
     </div>
+    <div id="content" class="visual">
+        <div>
+            <p><strong>NOTICE: </strong> Some adblockers prevent fonts from being loaded by Adobe Typekit. For the best accuracy, allow Typekit through the ad-blocker. There are no ads or trackers on this site.</p>       
+        </div>
+        <div class="dataentry flex one two-800">
+            <blockquote class="full">
+                <p><strong>To use this tool:</strong> Click the 'Choose File' button to select your villager image. Adjust the size of the image with the slider. Update the textboxes, and then hit the Download button at the bottom to save the image to your device.</p>
+            </blockquote>
+            <div>
+                <article class="card">
+                    <header>Villager Image</header>
+                    <footer>
+                        <input id="fileInput" type="file" />
+                        <blockquote>For best results, use an image no more than 600px wide with a transparent background</blockquote>
+                        <fieldset>
+                            <label>Image Scale: <input id="scaletext" class="slidertext" type="text" value="0" /><input id="scale" max="4" min="0.1" step="0.01" type="range" value="0.83" /></label>
+                            <label>Image Position: <input id="imagepostext" class="slidertext" type="text" value="1" /><input id="imagepos" max="2" min="0.1" step="0.001" type="range" value="1" /></label>
+                        </fieldset>
+                    </footer>
+                </article>
+            </div>
+            <div>
+                <article class="card">
+                    <header>Villager Info</header>
+                    <footer>
+                        <label>Villager Name: <input id="villagername" type="text" value="Your Name Here" /></label>
+                        <label>Adjust Name Position: <input id="namepostext" class="slidertext" type="text" value="1" /><input id="namepos" max="1" min="0" step="0.01" type="range" value="1" /></label>
+                        <label class="stack">Age: <input id="villagerage" type="text" value="Adult" /></label>
+                        <label class="stack">Line 1: <input id="line1" type="text" value="New card layout coming soon!" /></label>
+                        <label class="stack">Line 2: <input id="line2" type="text" value="You don't have to fill in every line" /></label>
+                        <label class="stack">Line 3: <input id="line3" type="text" value="Share in #Introductions" /></label>
+                        <label class="stack">Line 4: <input id="line4" type="text" value="On the Palia discord" /></label>
+                    </footer>
+                </article>
+            </div>
 
-    <canvas id="vccanvas" width="250" height="250"></canvas>
-    <img id="vcbackground" style="display: none;" src="images/vcbackground.png" alt="" />
-    <img id="villagerimage" class="vimage" style="display: none;" src="images/villager.png" alt="" />
-    <div class="downloadbutton">
-        <a id="downloadlink" style="display:none;"></a>
-        <input id="img-download" type="button" value="Download Image" />
+
+
+        </div>
+        <div id="canvascontainer">
+            <canvas id="vccanvas" width="250" height="250"></canvas>
+            <img id="vcbackground" style="display: none;" src="images/vcbackground030.png" alt="" />
+            <img id="villagerimage" class="vimage" style="display: none;" src="images/villager.png" alt="" />
+            <img id="bulletimage" class="vimage" style="display: none;" src="images/bullet.png" alt="" />
+            <div class="downloadbutton">
+                <a id="downloadlink" style="display:none;"></a>
+                <button id="img-download">Download Image</button>
+            </div>
+        </div>
     </div>
-    
 
 
     <script>
@@ -122,6 +178,7 @@
             canvas = document.getElementById('vccanvas');
             ctx = canvas.getContext('2d');
 
+            
             canvasWidth = 1200;
 
             canvas.width = canvasWidth;
@@ -207,7 +264,7 @@
         function drawVillager() {
             img = document.getElementById('villagerimage');
             villagerimagescale = document.getElementById('scale').value;
-            xscale = Math.min(650, img.width);
+            xscale = Math.min((canvas.width/2), img.width);
             xscale *= villagerimagescale;
             yscale = (xscale/img.width) * img.height;
 
@@ -254,39 +311,48 @@
             ctx.fillText(text, x, y);
 
             // LINES
+            bullet = document.getElementById('bulletimage');
             ctx.textAlign = 'left';
             ctx.font = '500 18pt filson-pro';
             ctx.strokeStyle = '#64483a';
             ctx.fillStyle = '#64483a';
 
             text = document.getElementById('line1').value;
+            if(text != '') {
+                x = canvas.width/1.64;
+                y = canvas.height - canvas.height/2.63;
 
-            x = canvas.width/1.64;
-            y = canvas.height - canvas.height/2.63;
-            
-            ctx.fillText(text, x, y);
-
+                ctx.drawImage(bullet, x - 22, y - 18);
+                
+                ctx.fillText(text, x, y);
+            }
             text = document.getElementById('line2').value;
+            if(text != '') {
+                x = canvas.width/1.64;
+                y = canvas.height - canvas.height/3.1;
+                
+                ctx.drawImage(bullet, x - 22, y - 18);
 
-            x = canvas.width/1.64;
-            y = canvas.height - canvas.height/3.1;
-            
-            ctx.fillText(text, x, y);
-
+                ctx.fillText(text, x, y);
+            }
             text = document.getElementById('line3').value;
+            if(text != '') {
+                x = canvas.width/1.64;
+                y = canvas.height - canvas.height/3.78;
+                
+                ctx.drawImage(bullet, x - 22, y - 18);
 
-            x = canvas.width/1.64;
-            y = canvas.height - canvas.height/3.78;
-            
-            ctx.fillText(text, x, y);
-
+                ctx.fillText(text, x, y);
+            }
             text = document.getElementById('line4').value;
+            if(text != '') {
+                x = canvas.width/1.64;
+                y = canvas.height - canvas.height/4.81;
+                
+                ctx.drawImage(bullet, x - 22, y - 18);
 
-            x = canvas.width/1.64;
-            y = canvas.height - canvas.height/4.81;
-            
-            ctx.fillText(text, x, y);
-
+                ctx.fillText(text, x, y);
+            }
             drawVillager();
         }
     </script>
