@@ -134,6 +134,7 @@ window.onload = function() {
         bgOrientation = "left"
 
         villagerImageScale = 100;
+        document.querySelector('.scaletext-image').value = 100;
 
         updateCanvas();
     }
@@ -161,10 +162,12 @@ window.onload = function() {
         var reader = new FileReader();
         reader.onload = function(event){
             img = document.getElementById('villagerimage');
+            img2 = document.getElementById('villagerimage2');
             img.onload = function(){
                 updateCanvas();
             }
             img.src = reader.result;
+            img2.src = reader.result;
             }
         reader.readAsDataURL(e.target.files[0]);     
     };
@@ -307,9 +310,16 @@ function drawVillager() {
     } else {
         img = document.getElementById('villagerimage2');
     }
-    xscale = Math.min((canvas.width/2), img.width);
-    xscale *= (villagerImageScale/100);
-    yscale = (xscale/img.width) * img.height;
+    if (img.height > img.width) {
+        console.log(canvas.height, img.height);
+        yscale = Math.min((canvas.height), img.height);
+        yscale *= (villagerImageScale/100);
+        xscale = (yscale/img.height) * img.width;
+    } else {
+        xscale = Math.min((canvas.width), img.width);
+        xscale *= (villagerImageScale/100);
+        yscale = (xscale/img.width) * img.height;
+    }
 
     if(format == "horizontal" || bgOrientation == "left") {
         x = canvas.width * 0.02 + (xscale * (villagerImageScale/100) - xscale) + imagePositionX;
