@@ -1,0 +1,43 @@
+@import url(https://fonts.googleapis.com/css?family=Lato:300);
+
+.keys {
+  font-family: 'Lato', sans-serif;    
+  text-align: center;
+  width: auto;
+  margin: auto;
+}
+
+.arr {
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  line-height: 30px;
+  background: grey;
+  color: white;
+  font-size: 15px;
+  border-right: 3px solid darken(grey, 20);
+  border-bottom: 3px solid darken(grey, 20);
+  border-left: 3px solid darken(grey, 15);
+  border-top: 3px solid darken(grey, 10);  
+  display: inline-block;
+  margin: 4px;
+  transition: all .05s linear;
+  &:active {
+    border-bottom: 4px solid darken(grey, 20);
+    text-shadow: 0 0 3px white, 0 0 3px white, 0 0 6px white;    
+    transform: translate(0, 2px);
+  }
+  user-select: none;
+}
+
+.name-left, .name-right, .image-left, .image-right {
+    position: relative;
+    top: -17px;
+}
+
+.pressed {
+  border-bottom: 4px solid darken(grey, 20);
+  text-shadow: 0 0 3px white;
+  transform: translate(0, 2px);
+}
