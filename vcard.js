@@ -414,10 +414,10 @@ function updateCanvas() {
 
         // line under name
         textLength = ctx.measureText(text).actualBoundingBoxLeft;
-        textHeight = ctx.measureText(text).fontBoundingBoxDescent;
+        textHeight = ctx.measureText(text).actualBoundingBoxDescent + 10;
         lineStartX = x - textLength;
         lineStartY = y + textHeight;
-
+        console.log(ctx.measureText(text));
         ctx.beginPath();
         ctx.moveTo(lineStartX,  lineStartY);
         ctx.lineTo(x + textLength,  lineStartY);
@@ -428,7 +428,7 @@ function updateCanvas() {
         subFontSize = fontSize * 0.66;
         ctx.font = 'bold ' + subFontSize + 'pt Merriweather';
         subtitle = document.getElementById('subtitle').value;
-        y = lineStartY + (ctx.measureText(subtitle).fontBoundingBoxAscent) + 3;
+        y = lineStartY + (ctx.measureText(subtitle).actualBoundingBoxDescent) + 33;
         ctx.fillText(subtitle, x, y);
     }
 
