@@ -208,13 +208,13 @@ window.onload = function() {
 
     // Name Size Adjust
     document.querySelector('.name-plus').onclick = (e) => {
-        nameScale += 1;
+        nameScale = parseInt(nameScale) + 1;
         document.querySelector('.scaletext-name').value = nameScale;
         updateCanvas();
     }
 
     document.querySelector('.name-minus').onclick = (e) => {
-        nameScale -= 1;
+        nameScale = parseInt(nameScale) - 1;
         document.querySelector('.scaletext-name').value = nameScale;
         updateCanvas();
     }
@@ -255,13 +255,13 @@ window.onload = function() {
 
     // Image Size Adjust
     document.querySelector('.image-plus').onclick = (e) => {
-        villagerImageScale += 1;
+        villagerImageScale = parseInt(villagerImageScale) + 1;
         document.querySelector('.scaletext-image').value = villagerImageScale;
         updateCanvas();
     }
 
     document.querySelector('.image-minus').onclick = (e) => {
-        villagerImageScale -= 1;
+        villagerImageScale = parseInt(villagerImageScale) - 1;
         document.querySelector('.scaletext-image').value = villagerImageScale;
         updateCanvas();
     }
