@@ -1,363 +1,159 @@
-<!doctype html>
-
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <title>Palia Villager Card Generator</title>
-  <meta name="description" content="An UNOFFICIAL generator to create your own villager cards.">
-  <meta name="author" content="DadJokeCinema">
-
-  <meta property="og:title" content="Palia Villager Card Generator">
-  <meta property="og:type" content="website">
-  <meta property="og:description" content="An UNOFFICIAL generator to create your own villager cards.">
-
-  <link rel="icon" href="favicon.ico">
-  <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="apple-touch-icon.png">
-
-  <link rel="stylesheet" href="https://use.typekit.net/yxe6stc.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picnic">
-
-  <style>
-      @font-face{ 
-        font-family: 'Algiers';
-        src:url('Algiers-Regular.woff2') format('woff2'),
-        url('Algiers-Regular.woff') format('woff'),
-        url('Algiers-Regular.ttf') format('truetype');
-      }   
-      body {
-        font-size: 1em;
-        line-height: 1.3;
-      }
-      .pagetitle {
-          font-family: Algiers;
-      }
-      .vimage {
-          max-width: 700px;
-      }
-      .downloadbutton {
-          display: block;
-          margin: 10px 0;
-      }
-      .slidertext {
-          width: 50px;
-      }
-      h1, em {
-          margin-bottom: 10px;
-          display: block;
-      }
-      .dataentry {
-          margin: 2em 0;
-          font-family: filson-pro, sans-serif;
-          font-weight: 400;
-          font-style: normal;
-      }
-      .dataentry .card {
-        margin: 1em 0;
-      }
-      .dataentry .card header {
-        background: rgb(254, 244, 230);
-      }
-      .visual {
-        text-align: left;
-        width: 90%;
-        margin: 0 auto;
-        padding: 2em 0 0;
-      }
-      .hero {
-        position: relative;
-        width: 100%;
-        text-align: center;
-        color: #333;
-        padding: 1px 0;
-        background: rgb(254, 244, 230);
-      }
-      .card footer fieldset, .card footer>input {
-        margin: 1em 0;
-      }
-
-      #canvascontainer {
-        padding-bottom: 4em;
-      }
-  </style>
-
-</head>
-
-<body>
-    <div class="hero">
-        <div class="content">
-            <h1 class="pagetitle">UNOFFICIAL Palia Villager Card generator</h1>
-            <strong>Presented by [TOAST] clan. Developed by DadJokeCinema</strong><br />
-            <em>version 0.3.0</em>
+<!DOCTYPE html>
+<html data-color-mode="dark" data-dark-theme="dark">
+  <head>
+    <title>Villager Card Generator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/@primer/css@^20.2.4/dist/primer.css" rel="stylesheet" />
+    <link href="arrows.css" rel="stylesheet" />
+    <link href="vcard.css" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/8909d489f0.js" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <div class="Header">
+        <div class="Header-item">
+          <a href="https://dadjokecinema.com" class="Header-link f4 d-flex flex-items-center">
+            <img src="images/djclogo.png" width="32" style="margin-right: 16px" />
+            <span>DadJokeCinema</span>
+          </a>
+        </div>
+        <div class="Header-item Header-item--full">
+          <span>Creator of Silly Things</span>
         </div>
     </div>
-    <div id="content" class="visual">
-        <div>
-            <p><strong>NOTICE: </strong><a href="beta.html">TRY THE NEW BETA VERSION HERE</a> (with a new vertical format card)</p>       
-        </div>
-        <div class="dataentry flex one two-800">
-            <blockquote class="full">
-                <p><strong>To use this tool:</strong> Click the 'Choose File' button to select your villager image. Adjust the size of the image with the slider. Update the textboxes, and then hit the Download button at the bottom to save the image to your device.</p>
-            </blockquote>
-            <article class="card full">
-                <p><strong>A reminder:</strong> Please be mindful of what information you put and share out! You never know what people may use this info for, so it's recommended to avoid personally identifying information.</p>
-            </article>
-            <div>
-                <article class="card">
-                    <header>Villager Image</header>
-                    <footer>
-                        <input id="fileInput" type="file" />
-                        <blockquote>For best results, use an image no more than 600px wide with a transparent background</blockquote>
-                        <fieldset>
-                            <label>Image Scale: <input id="scaletext" class="slidertext" type="text" value="0" /><input id="scale" max="4" min="0.1" step="0.01" type="range" value="0.83" /></label>
-                            <label>Image Position: <input id="imagepostext" class="slidertext" type="text" value="1" /><input id="imagepos" max="2" min="0.1" step="0.001" type="range" value="1" /></label>
-                        </fieldset>
-                    </footer>
-                </article>
-            </div>
-            <div>
-                <article class="card">
-                    <header>Villager Info</header>
-                    <footer>
-                        <label>Villager Name: <input id="villagername" type="text" value="Your Name Here" /></label>
-                        <label>Adjust Name Position: <input id="namepostext" class="slidertext" type="text" value="1" /><input id="namepos" max="1" min="0" step="0.01" type="range" value="1" /></label>
-                        <label class="stack">Age: <input id="villagerage" type="text" value="Adult" /></label>
-                        <label class="stack">Line 1: <input id="line1" type="text" value="New card layout coming soon!" /></label>
-                        <label class="stack">Line 2: <input id="line2" type="text" value="You don't have to fill in every line" /></label>
-                        <label class="stack">Line 3: <input id="line3" type="text" value="Share in #Introductions" /></label>
-                        <label class="stack">Line 4: <input id="line4" type="text" value="On the Palia discord" /></label>
-                    </footer>
-                </article>
-            </div>
-
-
-
+    <div class="Layout Layout--gutter-none">
+      <div class="Layout-main border-top border-bottom border-left p-3">
+        <p class="h1">The <span style="font-family: Algiers">UNOFFICIAL</span> Palia Villager Card Generator</p>
+        <p class="h2">Presented by [TOAST], designed by DadJokeCinema <em>- please contact DadJoke (username dadjoke) on Discord if you have issues with the generator)</em></p> 
+        <p class="h4">version 1.0.1</p>
+        <div class="flash mt-3 flash-warn">
+          To use the card generator, first select one of the two formats: the original horizontal format, or the newer vertical format. Then upload an image that you feel represents you, fill in the fields in the sidebar, and use the positioning tools to place everything to your liking. The card will update as you make changes. When you are done, simply click the "Download Image" button to create an image file you can save and share.
+          </br /><br /><strong>DO NOT put any information or images covered by the Palia NDA in your card. </strong><br /><br />Also, please be mindful of what information you put and share out! You never know what people may use this info for, so it's recommended to avoid personally identifying information.
+          <button class="btn btn-sm flash-action mt-1" type="submit">Close</button>
         </div>
         <div id="canvascontainer">
-            <canvas id="vccanvas" width="250" height="250"></canvas>
-            <img id="vcbackground" style="display: none;" src="images/vcbackground030.png" alt="" />
-            <img id="villagerimage" class="vimage" style="display: none;" src="images/villager.png" alt="" />
-            <img id="bulletimage" class="vimage" style="display: none;" src="images/bullet.png" alt="" />
-            <div class="downloadbutton">
-                <a id="downloadlink" style="display:none;"></a>
-                <button id="img-download">Download Image</button>
+          <canvas id="vccanvas" width="250" height="250"></canvas>
+          <img id="vcbackground" style="display: none;" src="images/vcbackground030.png" alt="" />
+          <img id="vcbackground-left" style="display: none;" src="images/vcbackground_left.png" alt="" />
+          <img id="vcbackground-right" style="display: none;" src="images/vcbackground_right.png" alt="" />
+          <img id="villagerimage" class="vimage" style="display: none;" src="images/villager.png" alt="" />
+          <img id="villagerimage2" class="vimage" style="display: none;" src="images/villager2.png" alt="" />
+          <img id="bulletimage" class="vimage" style="display: none;" src="images/bullet.png" alt="" />
+          <img id="bg1" class="vimage" style="display: none;" src="images/bg/1.jpg" alt="" />
+          <img id="bg2" class="vimage" style="display: none;" src="images/bg/2.jpg"alt="" />
+          <img id="bg3" class="vimage" style="display: none;" src="images/bg/3.png" alt="" />
+          <img id="bg4" class="vimage" style="display: none;" src="images/bg/4.png"alt="" />
+          <img id="bg5" class="vimage" style="display: none;" src="images/bg/5.png" alt="" />
+          <img id="vborder" class="vimage" style="display: none;" src="images/border.png" alt="" />
+          <div class="downloadbutton">
+              <a id="downloadlink" style="display:none;"></a>
+              <button id="img-download">Download Image</button>
+          </div>
+      </div>
+      </div>
+      <div class="Layout-sidebar border-top border-bottom p-3">
+        <div class="d-flex flex-auto flex-column m-3">
+          <div class="orientation-buttons d-flex flex-column flex-justify-center mb-4">
+            <div class="d-block mb-2 ml-0">
+              <span class="Label mr-1 Label--accent">Card Type</span>
             </div>
+            <div class="BtnGroup d-block mb-2 ml-0">
+              <button class="BtnGroup-item btn btn-outline horizontal-button" type="button" aria-selected="true">Horizontal</button>
+              <button class="BtnGroup-item btn btn-outline vertical-button" type="button">Vertical</button>
+            </div>
+          </div>
+          <div class="background-img-selector mb-4 vertical" style="display:none">
+            <div class="d-block mb-2 ml-0">
+              <span class="Label mr-1 Label--accent">Background Image</span>
+            </div>
+            <form>
+              <select class="form-select input-block bgselect" aria-label="Background">
+                <option>Concept Art - Landscape</option>
+                <option>Waterfall</option>
+                <option>Town Center</option>
+                <option>General Store</option>
+                <option>Concept Art - Town</option>
+              </select>
+              <button class="btn btn-sm ml-1 bgorientation-left">Left</button><button class="btn btn-sm ml-1 bgorientation-right">Right</button>
+            </form>
+          </div>
+          <div class="character-image d-flex flex-column flex-justify-center mb-4">
+            <div class="d-block mb-2 ml-0">
+              <span class="Label mr-1 Label--accent">Character Image</span>
+            </div>
+            <input id="fileInput" type="file" />
+            <div class="flash mt-3 mb-3">
+              For best results, use an image no more than 600px wide with a transparent background.
+            </div>
+            <div class="d-block mb-2 ml-0">
+              <span class="Label mr-1 Label--accent">Adjust Character Image Position</span>
+            </div>
+            <label>X: <input id="imgposx" max="1" min="0" step="0.01" type="range" value="1" class="slider" /></label>
+            <label>Y: <input id="imgposy" max="1" min="0" step="0.01" type="range" value="1" class="slider" /></label>
+            <div class="keys">
+              <div class="image-up arr"><i class="fa fa-arrow-up"></i></div>
+              <br />
+              <div class="image-left arr"><i class="fa fa-arrow-left"></i></div>  
+              <div class="image-down arr"><i class="fa fa-arrow-down"></i></div>
+              <div class="image-right arr"><i class="fa fa-arrow-right"></i></div>
+            </div>
+            <div class="d-block mb-2 ml-0">
+              <span class="Label mr-1 Label--accent">Adjust Character Image Size</span>
+            </div>
+            <div class="keys">
+              <div class="image-minus arr"><i class="fa fa-minus"></i></div>
+              <div class="image-plus arr"><i class="fa fa-plus"></i></div>  
+              <br />
+              <input class="scaletext-image"type="text" value="80" />%
+            </div>
+          </div>
+          <div class="villager-info d-flex flex-column flex-justify-center mb-4">
+            <div class="d-block mb-2 ml-0">
+              <span class="Label mr-1 Label--accent">Villager Info</span>
+            </div>
+            <label>Villager Name: </label><input id="villagername" type="text" value="Your Name Here" />
+            <div class="d-block mb-2 ml-0">
+              <span class="Label mr-1 Label--accent">Adjust Name Position</span>
+            </div>
+            <label>X: <input id="nameposx" max="1" min="0" step="0.01" type="range" value="1" class="slider" /></label>
+            <label>Y: <input id="nameposy" max="1" min="0" step="0.01" type="range" value="1" class="slider" /></label>
+            <div class="keys">
+              <div class="name-up arr"><i class="fa fa-arrow-up"></i></div>
+              <br />
+              <div class="name-left arr"><i class="fa fa-arrow-left"></i></div>  
+              <div class="name-down arr"><i class="fa fa-arrow-down"></i></div>
+              <div class="name-right arr"><i class="fa fa-arrow-right"></i></div>
+            </div>
+            <div class="d-block mb-2 ml-0">
+              <span class="Label mr-1 Label--accent">Adjust Name Size</span>
+            </div>
+            <div class="keys">
+              <div class="name-minus arr"><i class="fa fa-minus"></i></div>
+              <div class="name-plus arr"><i class="fa fa-plus"></i></div>  
+              <br />
+              <input class="scaletext-name" type="text" value="100" />%
+            </div>
+            <div class="vertical" style="display: none;">
+              <div class="d-flex flex-column">
+                <label class="subtitle">Subtitle: </label><input id="subtitle" type="text" value="The Best Bean" />
+              </div>
+            </div>
+            <br /><br />
+            <label class="stack">Age: <input id="villagerage" type="text" value="Adult" /></label>
+            <label class="stack">Line 1: </label><input id="line1" type="text" value="You don't have to fill in every line" />
+            <label class="stack">Line 2: </label><input id="line2" type="text" value="Share in #Introductions" />
+            <label class="stack">Line 3: </label><input id="line3" type="text" value="On the Palia discord" />
+            <label class="stack horizontal" style="display: block;">Line 4: </label><input class="horizontal" style="display:block;" id="line4" type="text" value="Check out the new format!" />
+            <div class="vertical" style="display: none;">
+              <div class="d-flex flex-column">
+                <label class="quotation">Quotation: </label><textarea id="quote" >As a rule, I don't share personal info in my villager card!</textarea>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
-
-
-    <script>
-        var canvas;
-        var canvasWidth;
-        var ctx;
-        var x;
-        var y;
-        var scaletext;
-        var namepostext;
-        var imagepostext
-        var download;
-        var xscale;
-        var yscale;
-        var fileInput;
-        var img;
-        var villagerimage;
-        var villagerimagescale;
-
-        window.onload = function() {
-            var deviceWidth = window.innerWidth;
-            villagerimagescale = 0.8
-
-            scaletext = document.getElementById('scaletext');
-            scaletext.value = document.getElementById('scale').value;
-
-            imagepostext = document.getElementById('imagepostext');
-            imagepostext.value = document.getElementById('imagepos').value;
-
-            namepostext = document.getElementById('namepostext');
-            namepostext.value = document.getElementById('namepos').value;
-
-            canvas = document.getElementById('vccanvas');
-            ctx = canvas.getContext('2d');
-
-            
-            canvasWidth = 1200;
-
-            canvas.width = canvasWidth;
-            canvas.height = canvasWidth/2
-
-            fileInput = document.getElementById('fileInput');
-            fileInput.addEventListener('change', function(e) {
-                var reader = new FileReader();
-                reader.onload = function(event){
-                    img = document.getElementById('villagerimage');
-                    img.onload = function(){
-                        updateCanvas();
-                    }
-                    img.src = reader.result;
-                    }
-                reader.readAsDataURL(fileInput.files[0]);     
-            }, false);
-
-            download = document.getElementById('img-download');
-            download.addEventListener('click', prepareDownload, false);
-
-            document.getElementById('scale').addEventListener('change', updateScale, false);
-            document.getElementById('scaletext').addEventListener('change', updateScaleText, false);
-            document.getElementById('imagepos').addEventListener('change', updateImagePos, false);
-            document.getElementById('imagepostext').addEventListener('change', updateImagePosText, false);
-            document.getElementById('namepos').addEventListener('change', updatePos, false);
-            document.getElementById('namepostext').addEventListener('change', updatePosText, false);
-            document.getElementById('villagername').addEventListener('change', updateCanvas, false);
-            document.getElementById('villagerage').addEventListener('change', updateCanvas, false);
-            document.getElementById('line1').addEventListener('change', updateCanvas, false);
-            document.getElementById('line2').addEventListener('change', updateCanvas, false);
-            document.getElementById('line3').addEventListener('change', updateCanvas, false);
-            document.getElementById('line4').addEventListener('change', updateCanvas, false);
-
-            updateCanvas();
-        }
-
-        function updateScale() {
-            scaletext.value = document.getElementById('scale').value;
-            updateCanvas();
-        }
-
-        function updateScaleText() {
-            document.getElementById('scale').value = scaletext.value;
-            updateCanvas();
-        }
-
-        function updateImagePos() {
-            imagepostext.value = document.getElementById('imagepos').value;
-            updateCanvas();
-        }
-
-        function updateImagePosText() {
-            document.getElementById('imagepos').value = imagepostext.value;
-            updateCanvas();
-        }
-
-        function updatePos() {
-            namepostext.value = document.getElementById('namepos').value;
-            updateCanvas();
-        }
-
-        function updatePosText() {
-            document.getElementById('namepos').value = namepostext.value;
-            updateCanvas();
-        }
- 
-        function prepareDownload() {
-            var link = document.getElementById('downloadlink');
-            link.setAttribute('download', 'VillagerCard.png');
-            link.setAttribute('href', canvas.toDataURL("image/png").replace("image/png", "image/octet-stream"));
-            link.click();
-        }
-
-        function drawBackground() {
-            img = document.getElementById('vcbackground');
-            x = canvas.width/2 - img.width/2;
-            y = canvas.height/2 - img.height/2;
-
-            ctx.drawImage(img, x, y);
-        }
-
-        function drawVillager() {
-            img = document.getElementById('villagerimage');
-            villagerimagescale = document.getElementById('scale').value;
-            xscale = Math.min((canvas.width/2), img.width);
-            xscale *= villagerimagescale;
-            yscale = (xscale/img.width) * img.height;
-
-            x = canvas.width * 0.02 + (xscale * (imagepostext.value) - xscale)
-            y = canvas.height - yscale;
-            ctx.drawImage(img, x, y, xscale, yscale);
-        }
-        
-        function updateCanvas() {
-            // CLEAR CANVAS
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            drawBackground();
-
-            // VILLAGER NAME
-            ctx.scale(1, 1.4);
-            ctx.textAlign = 'right';
-            ctx.font = 'normal 110pt Algiers';
-            ctx.fillStyle = '#00a6d3';
-
-            text = document.getElementById('villagername').value;
-            text = text.toUpperCase();
-
-            x = (canvas.width/1.01);
-            adjust = (canvas.width/2) * (1-namepostext.value);
-            x -= adjust;
-            y = canvas.height - canvas.height/1.25;
-            
-            ctx.fillText(text, x, y);
-
-            // AGE
-            ctx.setTransform(1, 0, 0, 1, 0, 0);
-            ctx.textAlign = 'left';
-            ctx.lineWidth  = 2;
-            ctx.font = '35pt arial';
-            ctx.strokeStyle = '#64483a';
-            ctx.fillStyle = '#64483a';
-
-            text = document.getElementById('villagerage').value;
-
-            x = canvas.width/1.52;
-            y = canvas.height - canvas.height/1.798;
-            
-            ctx.strokeText(text, x, y)
-            ctx.fillText(text, x, y);
-
-            // LINES
-            bullet = document.getElementById('bulletimage');
-            ctx.textAlign = 'left';
-            ctx.font = '500 18pt filson-pro';
-            ctx.strokeStyle = '#64483a';
-            ctx.fillStyle = '#64483a';
-
-            text = document.getElementById('line1').value;
-            if(text != '') {
-                x = canvas.width/1.64;
-                y = canvas.height - canvas.height/2.63;
-
-                ctx.drawImage(bullet, x - 22, y - 18);
-                
-                ctx.fillText(text, x, y);
-            }
-            text = document.getElementById('line2').value;
-            if(text != '') {
-                x = canvas.width/1.64;
-                y = canvas.height - canvas.height/3.1;
-                
-                ctx.drawImage(bullet, x - 22, y - 18);
-
-                ctx.fillText(text, x, y);
-            }
-            text = document.getElementById('line3').value;
-            if(text != '') {
-                x = canvas.width/1.64;
-                y = canvas.height - canvas.height/3.78;
-                
-                ctx.drawImage(bullet, x - 22, y - 18);
-
-                ctx.fillText(text, x, y);
-            }
-            text = document.getElementById('line4').value;
-            if(text != '') {
-                x = canvas.width/1.64;
-                y = canvas.height - canvas.height/4.81;
-                
-                ctx.drawImage(bullet, x - 22, y - 18);
-
-                ctx.fillText(text, x, y);
-            }
-            drawVillager();
-        }
-    </script>
-</body>
+    <script type="text/javascript" src="vcard.js"></script>
+  </body>
 </html>
