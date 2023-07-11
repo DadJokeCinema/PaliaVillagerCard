@@ -91,6 +91,9 @@ window.onload = function() {
     document.querySelector('#imgposx').value = 0.30;
     document.querySelector('#imgposy').value = 0.62;
 
+    document.querySelector('#nameposx').value = 1;
+    document.querySelector('#nameposy').value = 0.19;
+
     /** EVENT HANDLERS */
 
     // Close info box button handler
@@ -117,6 +120,9 @@ window.onload = function() {
 
         document.querySelector('#imgposx').value = 0.30;
         document.querySelector('#imgposy').value = 0.62;
+
+        document.querySelector('#nameposx').value = 1;
+        document.querySelector('#nameposy').value = 0.19;
 
         villagerImageScale = 80;
         document.querySelector('.scaletext-image').value = 80;
@@ -145,6 +151,9 @@ window.onload = function() {
         document.querySelector('#imgposx').value = 0.30;
         document.querySelector('#imgposy').value = 0.24;
 
+        document.querySelector('#nameposx').value = 0.75;
+        document.querySelector('#nameposy').value = 0.75;
+
         villagerImageScale = 100;
         document.querySelector('.scaletext-image').value = 100;
 
@@ -162,6 +171,8 @@ window.onload = function() {
         bgOrientation = "left";
         document.querySelector('#imgposx').value = 0.30;
         document.querySelector('#imgposy').value = 0.24;
+        document.querySelector('#nameposx').value = 0.75;
+        document.querySelector('#nameposy').value = 0.75;
         updateCanvas();
     }
 
@@ -170,6 +181,8 @@ window.onload = function() {
         bgOrientation = "right";
         document.querySelector('#imgposx').value = 0.70;
         document.querySelector('#imgposy').value = 0.24;
+        document.querySelector('#nameposx').value = 0.25;
+        document.querySelector('#nameposy').value = 0.75;
         updateCanvas();
     }
 
@@ -212,6 +225,14 @@ window.onload = function() {
     }
 
     // Name Position Adjust
+    document.querySelector('#nameposx').onchange = (e) => {
+        console.log(document.querySelector('#nameposx').value);
+        updateCanvas();
+    }
+    document.querySelector('#nameposy').onchange = (e) => {
+        console.log(document.querySelector('#nameposy').value);
+        updateCanvas();
+    }
     document.querySelector('.name-down').onclick = (e) => {
         namePositionY += 4;
         updateCanvas();
@@ -372,9 +393,9 @@ function updateCanvas() {
         ctx.font = 'normal 110pt Algiers';
         ctx.fillStyle = '#00a6d3';
 
-        x = (canvas.width/(nameScale/100));
+        x = (canvas.width * document.querySelector('#nameposx').value);
         x += namePositionX;
-        y = canvas.height - canvas.height/1.25;
+        y = (canvas.height * document.querySelector('#nameposy').value);
         y += namePositionY;
         
         ctx.fillText(text, x, y);
@@ -384,9 +405,9 @@ function updateCanvas() {
         fontSize = 38 * (nameScale/100);
         ctx.font = 'bold '+ fontSize + 'pt Merriweather';
         ctx.textAlign = 'center';
-        x = bgOrientation == "left" ? 650 : 200;
+        x = (canvas.width * document.querySelector('#nameposx').value);
         x += namePositionX;
-        y = 800
+        y = (canvas.height * document.querySelector('#nameposy').value);
         y += namePositionY;
 
         ctx.fillText(text, x, y);
