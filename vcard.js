@@ -88,6 +88,9 @@ window.onload = function() {
     imagePositionX = 0;
     imagePositionY = 0;
 
+    document.querySelector('#imgposx').value = 0.30;
+    document.querySelector('#imgposy').value = 0.62;
+
     /** EVENT HANDLERS */
 
     // Close info box button handler
@@ -112,6 +115,12 @@ window.onload = function() {
         canvas.width = 1200;
         canvas.height = 600;
 
+        document.querySelector('#imgposx').value = 0.30;
+        document.querySelector('#imgposy').value = 0.62;
+
+        villagerImageScale = 80;
+        document.querySelector('.scaletext-image').value = 80;
+
         updateCanvas();
     }
 
@@ -133,6 +142,9 @@ window.onload = function() {
 
         bgOrientation = "left"
 
+        document.querySelector('#imgposx').value = 0.30;
+        document.querySelector('#imgposy').value = 0.24;
+
         villagerImageScale = 100;
         document.querySelector('.scaletext-image').value = 100;
 
@@ -148,12 +160,16 @@ window.onload = function() {
     document.querySelector('.bgorientation-left').onclick = (e) => {
         e.preventDefault();
         bgOrientation = "left";
+        document.querySelector('#imgposx').value = 0.30;
+        document.querySelector('#imgposy').value = 0.24;
         updateCanvas();
     }
 
     document.querySelector('.bgorientation-right').onclick = (e) => {
         e.preventDefault();
         bgOrientation = "right";
+        document.querySelector('#imgposx').value = 0.70;
+        document.querySelector('#imgposy').value = 0.24;
         updateCanvas();
     }
 
@@ -190,24 +206,29 @@ window.onload = function() {
         updateCanvas();
     }
 
+    document.querySelector('.scaletext-name').onchange= (e) => {
+        nameScale = document.querySelector('.scaletext-name').value;
+        updateCanvas();
+    }
+
     // Name Position Adjust
     document.querySelector('.name-down').onclick = (e) => {
-        namePositionY += 2;
+        namePositionY += 4;
         updateCanvas();
     }
 
     document.querySelector('.name-up').onclick = (e) => {
-        namePositionY -= 2;
+        namePositionY -= 4;
         updateCanvas();
     }
     
     document.querySelector('.name-right').onclick = (e) => {
-        namePositionX += 2;
+        namePositionX += 4;
         updateCanvas();
     }
 
     document.querySelector('.name-left').onclick = (e) => {
-        namePositionX -= 2;
+        namePositionX -= 4;
         updateCanvas();
     }
 
@@ -223,25 +244,35 @@ window.onload = function() {
         document.querySelector('.scaletext-image').value = villagerImageScale;
         updateCanvas();
     }
+    document.querySelector('.scaletext-image').onchange= (e) => {
+        villagerImageScale = document.querySelector('.scaletext-image').value;
+        updateCanvas();
+    }
 
     // Image Position Adjust
+    document.querySelector('#imgposx').onchange = (e) => {
+        updateCanvas();
+    }
+    document.querySelector('#imgposy').onchange = (e) => {
+        updateCanvas();
+    }
     document.querySelector('.image-down').onclick = (e) => {
-        imagePositionY += 2;
+        imagePositionY += 4;
         updateCanvas();
     }
 
     document.querySelector('.image-up').onclick = (e) => {
-        imagePositionY -= 2;
+        imagePositionY -= 4;
         updateCanvas();
     }
     
     document.querySelector('.image-right').onclick = (e) => {
-        imagePositionX += 2;
+        imagePositionX += 4;
         updateCanvas();
     }
 
     document.querySelector('.image-left').onclick = (e) => {
-        imagePositionX -= 2;
+        imagePositionX -= 4;
         updateCanvas();
     }
 
@@ -311,22 +342,17 @@ function drawVillager() {
         img = document.getElementById('villagerimage2');
     }
     if (img.height > img.width) {
-        console.log(canvas.height, img.height);
         yscale = Math.min((canvas.height), img.height);
-        yscale *= (villagerImageScale/100);
         xscale = (yscale/img.height) * img.width;
     } else {
         xscale = Math.min((canvas.width), img.width);
-        xscale *= (villagerImageScale/100);
         yscale = (xscale/img.width) * img.height;
     }
+    xscale *= (villagerImageScale/100);
+    yscale *= (villagerImageScale/100);
 
-    if(format == "horizontal" || bgOrientation == "left") {
-        x = canvas.width * 0.02 + (xscale * (villagerImageScale/100) - xscale) + imagePositionX;
-    } else if(bgOrientation == "right") {
-        x = canvas.width * 0.50 + (xscale * (villagerImageScale/100) - xscale) + imagePositionX;
-    }
-    y = canvas.height - yscale + imagePositionY;
+    x = (canvas.width * document.querySelector('#imgposx').value) - (xscale / 2) + imagePositionX;
+    y = (canvas.height * document.querySelector('#imgposy').value) - (xscale /2) + imagePositionY;
     ctx.drawImage(img, x, y, xscale, yscale);
 }
 
@@ -489,11 +515,13 @@ function updateCanvas() {
             });
             
         }
+    }
 
+    drawVillager();
+
+    if(format == "vertical") {
         // Add border too
         img = document.getElementById('vborder');
         ctx.drawImage(img, 0, 0, 864, 1080);
     }
-
-    drawVillager();
 }
