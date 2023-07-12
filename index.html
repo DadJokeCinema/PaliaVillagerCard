@@ -32,6 +32,15 @@
           </br /><br /><strong>DO NOT put any information or images covered by the Palia NDA in your card. </strong><br /><br />Also, please be mindful of what information you put and share out! You never know what people may use this info for, so it's recommended to avoid personally identifying information.
           <button class="btn btn-sm flash-action mt-1" type="submit">Close</button>
         </div>
+        <div class="orientation-buttons d-flex flex-column flex-justify-center mb-4 mt-4">
+          <div class="d-block mb-2 ml-0">
+            <span class="Label mr-1 Label--accent">Card Type</span>
+          </div>
+          <div class="BtnGroup d-block mb-2 ml-0">
+            <button class="BtnGroup-item btn btn-outline vertical-button" type="button" aria-selected="true">Vertical</button>
+            <button class="BtnGroup-item btn btn-outline horizontal-button" type="button" >Horizontal (Old)</button>
+          </div>
+        </div>
         <div id="canvascontainer">
           <canvas id="vccanvas" width="250" height="250"></canvas>
           <img id="vcbackground" style="display: none;" src="images/vcbackground030.png" alt="" />
@@ -54,16 +63,7 @@
       </div>
       <div class="Layout-sidebar border-top border-bottom p-3">
         <div class="d-flex flex-auto flex-column m-3">
-          <div class="orientation-buttons d-flex flex-column flex-justify-center mb-4">
-            <div class="d-block mb-2 ml-0">
-              <span class="Label mr-1 Label--accent">Card Type</span>
-            </div>
-            <div class="BtnGroup d-block mb-2 ml-0">
-              <button class="BtnGroup-item btn btn-outline horizontal-button" type="button" aria-selected="true">Horizontal</button>
-              <button class="BtnGroup-item btn btn-outline vertical-button" type="button">Vertical</button>
-            </div>
-          </div>
-          <div class="background-img-selector mb-4 vertical" style="display:none">
+          <div class="background-img-selector mb-4 vertical" style="display:block">
             <div class="d-block mb-2 ml-0">
               <span class="Label mr-1 Label--accent">Background Image</span>
             </div>
@@ -134,7 +134,7 @@
               <br />
               <input class="scaletext-name" type="text" value="100" />%
             </div>
-            <div class="vertical" style="display: none;">
+            <div class="vertical" style="display: block;">
               <div class="d-flex flex-column">
                 <label class="subtitle">Subtitle: </label><input id="subtitle" type="text" value="The Best Bean" />
               </div>
@@ -144,8 +144,8 @@
             <label class="stack">Line 1: </label><input id="line1" type="text" value="You don't have to fill in every line" />
             <label class="stack">Line 2: </label><input id="line2" type="text" value="Share in #Introductions" />
             <label class="stack">Line 3: </label><input id="line3" type="text" value="On the Palia discord" />
-            <label class="stack horizontal" style="display: block;">Line 4: </label><input class="horizontal" style="display:block;" id="line4" type="text" value="Check out the new format!" />
-            <div class="vertical" style="display: none;">
+            <label class="stack horizontal" style="display: none;">Line 4: </label><input class="horizontal" style="display:none;" id="line4" type="text" value="Check out the new format!" />
+            <div class="vertical" style="display: block;">
               <div class="d-flex flex-column">
                 <label class="quotation">Quotation: </label><textarea id="quote" >As a rule, I don't share personal info in my villager card!</textarea>
               </div>

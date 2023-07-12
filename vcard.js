@@ -77,22 +77,25 @@ window.onload = function() {
     canvas = document.getElementById('vccanvas');
     ctx = canvas.getContext('2d');
 
-    canvas.width = 1200;
-    canvas.height = 600;
+    canvas.width = 864;
+    canvas.height = 1080;
 
-    format = "horizontal";
+    format = "vertical";
     nameScale = 100;
     namePositionX = 0;
     namePositionY = 0;
-    villagerImageScale = 80;
+    villagerImageScale = 100;
     imagePositionX = 0;
     imagePositionY = 0;
 
-    document.querySelector('#imgposx').value = 0.30;
-    document.querySelector('#imgposy').value = 0.62;
+    bgOrientation = "left"
 
-    document.querySelector('#nameposx').value = 1;
-    document.querySelector('#nameposy').value = 0.19;
+    document.querySelector('#imgposx').value = 0.30;
+    document.querySelector('#imgposy').value = 0.24;
+
+    document.querySelector('#nameposx').value = 0.75;
+    document.querySelector('#nameposy').value = 0.75;
+
 
     /** EVENT HANDLERS */
 
